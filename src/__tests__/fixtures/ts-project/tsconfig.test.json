@@ -1,0 +1,7 @@
+{
+  "extends": ["./tsconfig.json", "../../../../typescript/tsconfig.test.json"],
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src/globals.fixture.ts", "src/valid.ts"]
+}

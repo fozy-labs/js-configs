@@ -1,0 +1,13 @@
+{
+  "extends": "../../../../typescript/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "noEmit": true
+  },
+  "include": ["src/valid.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,87 @@
+{
+    "name": "@fozy-labs/js-configs",
+    "version": "0.1.0",
+    "type": "module",
+    "description": "Shared ESLint, Prettier, TypeScript, Vitest, and EditorConfig configurations for fozy-labs packages.",
+    "author": "Vladimir Panev <vova6255@gmail.com>",
+    "license": "MIT",
+    "homepage": "https://github.com/fozy-labs/js-configs",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/fozy-labs/js-configs.git"
+    },
+    "bugs": {
+        "url": "https://github.com/fozy-labs/js-configs/issues"
+    },
+    "exports": {
+        "./eslint": {
+            "import": "./dist/eslint/index.js",
+            "types": "./dist/eslint/index.d.ts"
+        },
+        "./prettier": {
+            "import": "./dist/prettier/index.js",
+            "types": "./dist/prettier/index.d.ts"
+        },
+        "./typescript": "./typescript/tsconfig.base.json",
+        "./typescript/test": "./typescript/tsconfig.test.json",
+        "./vitest": {
+            "import": "./dist/vitest/index.js",
+            "types": "./dist/vitest/index.d.ts"
+        }
+    },
+    "bin": {
+        "js-configs": "./dist/cli/index.js"
+    },
+    "files": [
+        "dist",
+        "typescript",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "rimraf dist && tsc",
+        "ts-check": "tsc --noEmit",
+        "ts-check:tests": "tsc --noEmit --project tsconfig.test.json",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "lint": "eslint src/",
+        "lint:fix": "eslint src/ --fix",
+        "format": "prettier --write src/",
+        "format:check": "prettier --check src/"
+    },
+    "dependencies": {
+        "@eslint/js": "^9.20.0",
+        "typescript-eslint": "^8.25.0",
+        "eslint-config-prettier": "^10.1.0",
+        "@ianvs/prettier-plugin-sort-imports": "^4.4.0"
+    },
+    "peerDependencies": {
+        "eslint": "^9.0.0",
+        "prettier": "^3.0.0",
+        "typescript": "^5.0.0",
+        "vitest": "^4.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "@vitest/coverage-v8": "^4.0.18",
+        "eslint": "^9.20.0",
+        "jiti": "^2.4.0",
+        "jsdom": "^28.1.0",
+        "prettier": "^3.5.0",
+        "rimraf": "6.1.2",
+        "typescript": "5.9.2",
+        "vitest": "^4.0.18"
+    },
+    "keywords": [
+        "eslint-config",
+        "prettier-config",
+        "tsconfig",
+        "vitest-config",
+        "shared-config",
+        "fozy-labs"
+    ],
+    "sideEffects": false,
+    "publishConfig": {
+        "access": "public"
+    }
+}
