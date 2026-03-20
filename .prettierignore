@@ -2,3 +2,5 @@ dist/
 coverage/
 node_modules/
 *.md
+
+src/__tests__/fixtures/
