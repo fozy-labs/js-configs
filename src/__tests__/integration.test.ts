@@ -127,9 +127,80 @@ describe("Prettier integration", () => {
         // node:fs should come before express (builtin before third-party)
         const fsIndex = lines.findIndex((l) => l.includes("node:fs"));
         const expressIndex = lines.findIndex((l) => l.includes("express"));
-        if (fsIndex !== -1 && expressIndex !== -1) {
-            expect(fsIndex).toBeLessThan(expressIndex);
+        expect(fsIndex).not.toBe(-1);
+        expect(expressIndex).not.toBe(-1);
+        expect(fsIndex).toBeLessThan(expressIndex);
+    });
+
+    // T33: Comprehensive import sorting with all 5 groups
+    it("sorts imports across all 5 configured groups", async () => {
+        const input = readFileSync(
+            resolve(prettierFixture, "all-groups-imports.ts"),
+            "utf-8",
+        );
+        const output = await prettier.format(input, {
+            ...prettierConfig,
+            parser: "typescript",
+        });
+        const lines = output.split("\n");
+        const importLines = lines.filter((l) => l.startsWith("import"));
+
+        const classify = (line: string) => {
+            const match = line.match(/from\s+["'](.+?)["']/);
+            if (!match) return "unknown";
+            const path = match[1];
+            if (path.startsWith("node:")) return "builtin";
+            if (path.startsWith("@/")) return "alias";
+            if (path.startsWith("../../../")) return "deep-parent";
+            if (path.startsWith("..")) return "relative-parent";
+            if (path.startsWith("./")) return "local";
+            return "third-party";
+        };
+
+        const groups = importLines.map(classify);
+        const expectedOrder = ["builtin", "third-party", "alias", "deep-parent", "relative-parent", "local"];
+        const seenOrder = groups.filter(
+            (g, i) => i === 0 || g !== groups[i - 1],
+        );
+        expect(seenOrder).toEqual(expectedOrder);
+
+        // Verify blank-line separators between groups
+        for (let i = 0; i < importLines.length - 1; i++) {
+            const currentGroup = classify(importLines[i]);
+            const nextImport = importLines[i + 1];
+            const nextGroup = classify(nextImport);
+            if (currentGroup !== nextGroup) {
+                const currentLineIdx = lines.indexOf(importLines[i]);
+                const nextLineIdx = lines.indexOf(nextImport);
+                expect(nextLineIdx - currentLineIdx).toBeGreaterThan(1);
+            }
         }
+    });
+
+    // T34: Decorator + import sorting
+    it("formats files with decorators and sorts imports", async () => {
+        const input = readFileSync(
+            resolve(prettierFixture, "decorator-imports.ts"),
+            "utf-8",
+        );
+        const output = await prettier.format(input, {
+            ...prettierConfig,
+            parser: "typescript",
+        });
+
+        // No SyntaxError thrown — decorator parsing works
+        expect(output).toBeDefined();
+
+        // Decorator syntax preserved
+        expect(output).toContain("@log");
+
+        // Imports sorted: builtin before local
+        const importLines = output.split("\n").filter((l) => l.startsWith("import"));
+        const fsIndex = importLines.findIndex((l) => l.includes("node:fs"));
+        const localIndex = importLines.findIndex((l) => l.includes("./local"));
+        expect(fsIndex).not.toBe(-1);
+        expect(localIndex).not.toBe(-1);
+        expect(fsIndex).toBeLessThan(localIndex);
     });
 });
 

@@ -594,6 +594,11 @@ exports[`Config snapshots > prettier config matches snapshot 1`] = `
     "",
     "^\\./(.*)$",
   ],
+  "importOrderParserPlugins": [
+    "typescript",
+    "jsx",
+    "["decorators", { "decoratorsBeforeExport": true }]",
+  ],
   "plugins": [
     "@ianvs/prettier-plugin-sort-imports",
   ],

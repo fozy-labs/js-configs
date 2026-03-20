@@ -15,6 +15,7 @@ const config: Config = {
         "",
         "^\\./(.*)$",
     ],
+    importOrderParserPlugins: ["typescript", "jsx", '["decorators", { "decoratorsBeforeExport": true }]'],
 };
 
 export default config;
