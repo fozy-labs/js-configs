@@ -1,6 +1,6 @@
 {
     "name": "@fozy-labs/js-configs",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "type": "module",
     "description": "Shared ESLint, Prettier, TypeScript, Vitest, and EditorConfig configurations for fozy-labs packages.",
     "author": "Vladimir Panev <vova6255@gmail.com>",
