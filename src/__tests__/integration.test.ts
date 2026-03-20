@@ -158,7 +158,14 @@ describe("Prettier integration", () => {
         };
 
         const groups = importLines.map(classify);
-        const expectedOrder = ["builtin", "third-party", "alias", "deep-parent", "relative-parent", "local"];
+        const expectedOrder = [
+            "builtin",
+            "third-party",
+            "alias",
+            "deep-parent",
+            "relative-parent",
+            "local",
+        ];
         const seenOrder = groups.filter(
             (g, i) => i === 0 || g !== groups[i - 1],
         );
@@ -195,7 +202,9 @@ describe("Prettier integration", () => {
         expect(output).toContain("@log");
 
         // Imports sorted: builtin before local
-        const importLines = output.split("\n").filter((l) => l.startsWith("import"));
+        const importLines = output
+            .split("\n")
+            .filter((l) => l.startsWith("import"));
         const fsIndex = importLines.findIndex((l) => l.includes("node:fs"));
         const localIndex = importLines.findIndex((l) => l.includes("./local"));
         expect(fsIndex).not.toBe(-1);
