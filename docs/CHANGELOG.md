@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.0] - 2026-03-19
 
 ### Added
 - Shared ESLint flat config (`@fozy-labs/js-configs/eslint`) — `@eslint/js` recommended, `typescript-eslint` strict, 6 custom rule overrides (`no-explicit-any` off, `no-non-null-assertion` off, `no-extraneous-class` off, `no-dynamic-delete` off, `no-invalid-void-type` off, `no-unused-vars` with `^_` patterns), `projectService: true`, `eslint-config-prettier`
