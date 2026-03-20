@@ -81,6 +81,9 @@
         "fozy-labs"
     ],
     "sideEffects": false,
+    "engines": {
+        "node": ">=22.0.0"
+    },
     "publishConfig": {
         "access": "public"
     }
