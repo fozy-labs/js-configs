@@ -41,8 +41,7 @@
     "scripts": {
         "build": "rimraf dist && tsc",
         "ts-check": "tsc --noEmit",
-        "ts-check:tests": "tsc --noEmit --project tsconfig.test.json",
-        "test": "vitest run",
+        "test": "tsc --project tsconfig.test.json && vitest run",
         "test:coverage": "vitest run --coverage",
         "lint": "eslint src/",
         "lint:fix": "eslint src/ --fix",

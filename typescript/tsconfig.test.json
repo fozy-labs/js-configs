@@ -2,5 +2,5 @@
     "compilerOptions": {
         "types": ["vitest/globals"],
         "noEmit": true
-    }
+    },
 }
